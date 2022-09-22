@@ -13,9 +13,11 @@ warnings.simplefilter('ignore')
 
 #%%
 # read data
-excel = pd.read_excel("2016_lag_select.xlsx", sheet_name="lag_0")
+excel = pd.read_excel("2020_lag_select.xlsx", sheet_name="lag_0")
 X = excel.drop(columns=["time", "cases"])
-y = excel.iloc[:,1]
+X = X[:104]
+y = excel.iloc[:,1][:104]
+
 
 # %% 
 # the original model
@@ -55,7 +57,9 @@ while (pvs > 0.05).sum() != 0:
         # print(f"remove {col}")
         rm_list.append(col)
     
+    XX = XX.select_dtypes(include=[np.number]).dropna().apply(stats.zscore)
     X2 = sm.add_constant(XX)
+    y = (y-y.mean())/y.std()
     est = sm.OLS(y, X2)
     est2 = est.fit()
     
