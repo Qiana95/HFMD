@@ -1,7 +1,6 @@
 #%%
 # import packages
 from copy import deepcopy
-
 import pandas as pd
 import numpy as np
 from sklearn import datasets, linear_model
@@ -13,10 +12,9 @@ warnings.simplefilter('ignore')
 
 #%%
 # read data
-excel = pd.read_excel("2020_lag_select.xlsx", sheet_name="lag_0")
+excel = pd.read_excel("../search_terms_rsv.xlsx", sheet_name="lag_0_2020")
 X = excel.drop(columns=["time", "cases"])
-X = X[:104]
-y = excel.iloc[:,1][:104]
+y = excel.iloc[:,1]
 
 
 # %% 
